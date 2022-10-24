@@ -2,7 +2,7 @@ package = "websocket"
 version = "scm-1"
 
 source = {
-    url = "git+https://github.com/tarantool/websocket.git",
+    url = "git+https://github.com/Artem3213212/websocket.git",
     branch = 'master',
 }
 
@@ -15,7 +15,7 @@ description = {
           - ping/pong
           - graceful shutdown
     ]],
-    homepage = "https://github.com/tarantool/websocket",
+    homepage = "https://github.com/Artem3213212/websocket",
     license = "MIT",
 }
 
