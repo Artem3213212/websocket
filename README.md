@@ -47,7 +47,7 @@ For example, it can help when you want to:
 ### master
 
 ``` shell
-tarantoolctl rocks install https://github.com/tarantool/websocket/raw/master/websocket-scm-1.rockspec
+tarantoolctl rocks install https://github.com/Artem3213212/websocket/raw/master/websocket-scm-1.rockspec
 ```
 
 ## Example
