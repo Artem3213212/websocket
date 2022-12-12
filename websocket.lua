@@ -174,10 +174,10 @@ function wspeer.check_client_handshake(self, timeout)
     request = handshake.upgrade_request(request)
     local packet = handshake.reduce_request(request)
 
-    local rc = self.peer:write(packet,
+    local rc, err = self.peer:write(packet,
                                frame.slice_wait(timeout, starttime))
     if rc == nil then
-        return false, 'Connection closed: error'
+        return false, 'Connection closed: ', err
     end
     if rc == 0 then
         return false, 'Connection closed: eof'
