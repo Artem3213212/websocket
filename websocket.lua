@@ -607,7 +607,7 @@ function wspeer.connect(url, request, options)
     if sslon then
         ssl = require('websocket.ssl')
         sock, err = ssl.tcp_connect(url.host, tonumber(url.service),
-                                    options.timeout, options.ctx)
+                                    options.timeout, options.ctx, url.host)
         if not sock then
             return sock, err
         end
