@@ -106,6 +106,9 @@ int SSL_CTX_set_ciphersuites(SSL_CTX *ctx, const char *str);
         const void *needle, size_t needlelen);
 ]]
 
+local SSL_CTRL_SET_TLSEXT_HOSTNAME = 55
+local TLSEXT_NAMETYPE_host_name    = 0
+
 local rc, res = pcall(
     function()
         ffi.cdef([[
@@ -476,7 +479,7 @@ function sslsocket.read(self, opts, timeout)
     error('Usage: s:read(delimiter|chunk|{delimiter = x, chunk = x}, timeout)')
 end
 
-local function tcp_connect(host, port, timeout, sslctx)
+local function tcp_connect(host, port, timeout, sslctx, hostname)
     if sslctx == nil then
         sslctx = default_ctx
     end
@@ -493,6 +496,10 @@ local function tcp_connect(host, port, timeout, sslctx)
         return nil, 'tcp connect failed'
     end
 
+    -- SSL_set_tlsext_host_name is a
+    -- SSL_ctrl(s, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, (void *)name)
+    assert(1 == ffi.C.SSL_ctrl(ssl, SSL_CTRL_SET_TLSEXT_HOSTNAME, TLSEXT_NAMETYPE_host_name, ffi.cast("void *", hostname)))
+ 
     sock:nonblock(true)
 
     ffi.C.ERR_clear_error()
