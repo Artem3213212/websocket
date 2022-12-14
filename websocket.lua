@@ -620,6 +620,11 @@ function wspeer.connect(url, request, options)
     end
 
     local self = wspeer.new(sock, nil, true, false, request, options.max_receive_payload)
+    
+    if options.sync_handshake then
+        self:check_client_handshake()
+    end
+    
     return self
 end
 
